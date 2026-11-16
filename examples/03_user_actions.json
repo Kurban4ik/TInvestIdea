@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "schema_version": "0.1.0",
+    "dataset_id": "synthetic_retrospective_v1",
+    "synthetic": true,
+    "timezone": "Europe/Moscow",
+    "currency": "RUB",
+    "warning": "Все компании, торги, новости и операции вымышлены. .invalid — заглушки ссылок."
+  },
+  "accounts": [
+    {
+      "account_id": "account_demo",
+      "owner_id": "user_demo",
+      "base_currency": "RUB",
+      "access": "read_only"
+    }
+  ],
+  "opening_snapshot": {
+    "snapshot_id": "opening_account",
+    "as_of": "2025-01-31T19:00:00+03:00",
+    "cash": "100000.00",
+    "positions": [],
+    "other_assets": [],
+    "source_id": "src_broker_snapshot"
+  },
+  "operations": [
+    {
+      "operation_id": "op_buy_1",
+      "account_id": "account_demo",
+      "asset_id": "asset_synx",
+      "operation_type": "buy",
+      "executed_at": "2025-02-03T12:00:00+03:00",
+      "broker_available_at": "2025-02-03T12:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "quantity": "10",
+      "price": "1000.00",
+      "fee": "10.00",
+      "currency": "RUB",
+      "status": "executed",
+      "source_id": "src_broker_snapshot",
+      "thesis_id": "thesis_dividend",
+      "user_reason": "dividend_thesis"
+    },
+    {
+      "operation_id": "op_buy_2",
+      "account_id": "account_demo",
+      "asset_id": "asset_synx",
+      "operation_type": "buy",
+      "executed_at": "2025-02-25T18:40:00+03:00",
+      "broker_available_at": "2025-02-25T18:40:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "quantity": "20",
+      "price": "540.00",
+      "fee": "10.80",
+      "currency": "RUB",
+      "status": "executed",
+      "source_id": "src_broker_snapshot",
+      "thesis_id": "thesis_dividend",
+      "user_reason": "increase_position"
+    },
+    {
+      "operation_id": "op_sell_1",
+      "account_id": "account_demo",
+      "asset_id": "asset_synx",
+      "operation_type": "sell",
+      "executed_at": "2025-03-20T14:00:00+03:00",
+      "broker_available_at": "2025-03-20T14:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "quantity": "10",
+      "price": "480.00",
+      "fee": "4.80",
+      "currency": "RUB",
+      "status": "executed",
+      "source_id": "src_broker_snapshot",
+      "thesis_id": "thesis_dividend",
+      "user_reason": "rebalance_to_concentration_limit"
+    },
+    {
+      "operation_id": "op_dividend",
+      "account_id": "account_demo",
+      "asset_id": "asset_synx",
+      "operation_type": "dividend_credit",
+      "executed_at": "2025-03-17T10:00:00+03:00",
+      "broker_available_at": "2025-03-17T10:00:00+03:00",
+      "eligible_quantity": "40",
+      "amount": "400.00",
+      "currency": "RUB",
+      "corporate_action_id": "ca_dividend",
+      "source_id": "src_broker_snapshot",
+      "ingested_at": "2025-04-01T06:00:00+03:00"
+    },
+    {
+      "operation_id": "op_dividend_tax",
+      "account_id": "account_demo",
+      "asset_id": "asset_synx",
+      "operation_type": "tax_withholding",
+      "executed_at": "2025-03-17T10:00:01+03:00",
+      "broker_available_at": "2025-03-17T10:00:01+03:00",
+      "amount": "52.00",
+      "currency": "RUB",
+      "related_operation_id": "op_dividend",
+      "source_id": "src_broker_snapshot",
+      "ingested_at": "2025-04-01T06:00:00+03:00"
+    }
+  ],
+  "theses": [
+    {
+      "thesis_id": "thesis_dividend",
+      "asset_id": "asset_synx",
+      "version": 1,
+      "template_id": "dividend_payment",
+      "recorded_at": "2025-02-03T11:00:00+03:00",
+      "effective_from": "2025-02-03T11:00:00+03:00",
+      "origin": "user_selected",
+      "statement": "Компания выплатит не менее 10 RUB на акцию после сплита до 31 марта.",
+      "predicate": {
+        "metric": "gross_cash_dividend_per_post_split_share",
+        "operator": ">=",
+        "threshold": "10.00",
+        "deadline": "2025-03-31"
+      },
+      "entry_evidence_ids": [
+        "n_dividend",
+        "ca_dividend"
+      ],
+      "invalidation_condition": "Отмена выплаты либо выплата меньше порога к сроку.",
+      "claim_scope": "Выплата дивиденда; тезис не обещает положительный итог позиции."
+    }
+  ],
+  "rule_versions": [
+    {
+      "rule_set_id": "rules_v1",
+      "recorded_at": "2025-02-03T10:30:00+03:00",
+      "effective_from": "2025-02-03T10:30:00+03:00",
+      "effective_to": null,
+      "origin": "user_confirmed",
+      "rules": [
+        {
+          "rule_id": "max_weight",
+          "kind": "limit",
+          "threshold": 0.15,
+          "predicate": "position_value_after_trade / account_equity_after_trade <= threshold"
+        },
+        {
+          "rule_id": "avoid_jump_buy",
+          "kind": "user_constraint",
+          "threshold": 0.05,
+          "predicate": "on_buy: last_observed_quote / adjusted_previous_close - 1 < threshold"
+        },
+        {
+          "rule_id": "thesis_before_buy",
+          "kind": "user_constraint",
+          "predicate": "on_buy: thesis.recorded_at < trade.executed_at"
+        },
+        {
+          "rule_id": "avoid_averaging_down",
+          "kind": "user_constraint",
+          "threshold": -0.05,
+          "predicate": "on_add: price / held_average_price_excluding_fees - 1 > threshold"
+        },
+        {
+          "rule_id": "hold_to_deadline",
+          "kind": "user_constraint",
+          "deadline": "2025-03-31",
+          "predicate": "no_sale_before_deadline_unless_risk_rebalance",
+          "exception": "reason recorded at trade is rebalance_to_concentration_limit AND weight_after <= 0.15"
+        }
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "request_id": "request_01",
+      "asked_at": "2025-04-01T10:00:00+03:00",
+      "text": "Разбери SYNX с 3 февраля по 31 марта. Почему я в минусе, если дивиденды выплатили?",
+      "resolved_asset_id": "asset_synx",
+      "period_from": "2025-02-03",
+      "period_through": "2025-03-31",
+      "period_policy": "Включая границы; конечная оценка по закрытию 31 марта."
+    }
+  ]
+}

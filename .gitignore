@@ -1,0 +1,28 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+.codex/
+.agents/
+
+# Python and editors
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Working notes, superseded illustrations and generated publishing packages
+/proj_descr.pdf
+/example.png
+/PROJECT_DATA_AND_PIPELINE.md
+/illustrations/
+/dist/
+/.github-upload/
+*.zip

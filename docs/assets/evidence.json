@@ -1,0 +1,97 @@
+{
+  "historical_market_data": {
+    "synthetic": false,
+    "instrument": "NVDA",
+    "currency": "USD",
+    "price_basis": "unadjusted_daily_close",
+    "closes": {
+      "2025-01-24": "142.62",
+      "2025-01-27": "118.42",
+      "2025-01-28": "128.99",
+      "2025-01-29": "123.70",
+      "2025-01-30": "124.65"
+    },
+    "sp500_closes": {
+      "2025-01-29": "6039.31",
+      "2025-01-30": "6071.17"
+    }
+  },
+  "hypothetical_account": {
+    "synthetic": true,
+    "equity_before_purchase": "14262.00",
+    "starting_nvda_shares": 10,
+    "purchase_on_2025_01_24": {
+      "quantity": 30,
+      "price": "142.62"
+    },
+    "sale_on_2025_01_28": {
+      "quantity": 10,
+      "price": "128.99"
+    },
+    "ending_nvda_shares": 30,
+    "ending_cash": "9847.10",
+    "rules_declared_before_2025_01_24": {
+      "max_weight": 0.3,
+      "stress_stock_drop": -0.1,
+      "max_account_stress_loss": 0.03,
+      "normal_daily_difference_from_sp500_percentage_points": 1
+    },
+    "execution_assumption": "Market-on-close simulation. No taxes, fees, dividends or other asset price changes."
+  },
+  "calculations": {
+    "fall_percent": "-16.96816715748141915579862572",
+    "rebound_percent": "8.925857118729944266171254900",
+    "normal_day_percent": "0.767987065481002425222312000",
+    "sp500_return_percent": "0.527543709463498313549064400",
+    "difference_percentage_points": "0.240443356017504111673247600",
+    "weight_before_sale_percent": "37.61518721567712586025895253",
+    "weight_after_sale_percent": "28.21139041175784439519421439",
+    "sale_advantage_versus_holding_10_shares_until_2025_01_29": "52.90"
+  },
+  "interpretation_limits": [
+    "Risk breach is established by predeclared hypothetical rules, not the later price fall.",
+    "DeepSeek-R1 release was public on January 20; this does not make the January 27 selloff predictable.",
+    "Green means a favorable realized comparison through January 29 plus a restored concentration limit; not foresight or guaranteed skill.",
+    "Gray uses a demo threshold on the daily stock-minus-index return, not an estimated beta or a statistical normality test.",
+    "Daily closing figures do not describe intraday volatility."
+  ],
+  "sources": [
+    {
+      "id": "deepseek_release",
+      "date": "2025-01-20",
+      "url": "https://deepseek.com/en/news/deepseek-r1/"
+    },
+    {
+      "id": "nvda_daily_close",
+      "url": "https://finance.yahoo.com/quote/NVDA/history/?period1=1613687279&period2=1771453658",
+      "access": "Historical rows verified in web search; direct page returned HTTP 429. Cross-checked with other historical tables."
+    },
+    {
+      "id": "nvda_cross_check",
+      "url": "https://www.quantellect.ai/us/stocks/nasdaq/nvda/price-history/2025-01"
+    },
+    {
+      "id": "jan24_close_primary_filing",
+      "url": "https://www.sec.gov/Archives/edgar/data/1666268/000183988225004282/ms5891_424b2-02246.htm"
+    },
+    {
+      "id": "selloff_news",
+      "date": "2025-01-27",
+      "url": "https://apple.news/A3JTlQgugQR6yu9MrtVtCCA"
+    },
+    {
+      "id": "rebound_news",
+      "date": "2025-01-28",
+      "url": "https://www.streetinsider.com/Reuters/Nasdaq%2Bleads%2BWall%2BSt%2Bhigher%2C%2Btech%2Bshares%2Brecover%2Bfrom%2BMonday%27s%2Bsell-off/24254733.html"
+    },
+    {
+      "id": "market_news",
+      "date": "2025-01-30",
+      "url": "https://apnews.com/article/16957cd345355f6e4884d1f4470bb320"
+    },
+    {
+      "id": "market_close_cross_check",
+      "url": "https://www.coinbase.com/institutional/research-insights/research/weekly-market-commentary/weekly-2025-01-31"
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "schema_version": "0.1.0",
+    "dataset_id": "synthetic_retrospective_v1",
+    "synthetic": true,
+    "timezone": "Europe/Moscow",
+    "currency": "RUB",
+    "warning": "Все компании, торги, новости и операции вымышлены. .invalid — заглушки ссылок."
+  },
+  "sources": [
+    {
+      "source_id": "src_market_snapshot",
+      "kind": "synthetic_exchange_feed",
+      "published_at": "2025-04-01T05:00:00+03:00",
+      "provider_available_at": "2025-04-01T05:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/market/snapshot",
+      "historical_availability_field": "daily_bars[].provider_available_at"
+    },
+    {
+      "source_id": "src_broker_snapshot",
+      "kind": "synthetic_read_only_broker",
+      "published_at": "2025-04-01T05:00:00+03:00",
+      "provider_available_at": "2025-04-01T05:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/broker/snapshot",
+      "historical_availability_field": "operations[].broker_available_at"
+    },
+    {
+      "source_id": "src_split",
+      "kind": "issuer_corporate_action",
+      "published_at": "2025-01-20T09:00:00+03:00",
+      "provider_available_at": "2025-01-20T09:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/actions/split"
+    },
+    {
+      "source_id": "src_dividend",
+      "kind": "issuer_corporate_action",
+      "published_at": "2025-01-30T09:00:00+03:00",
+      "provider_available_at": "2025-01-30T09:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/actions/dividend"
+    },
+    {
+      "source_id": "src_n_dividend",
+      "kind": "issuer_disclosure",
+      "published_at": "2025-01-30T09:00:00+03:00",
+      "provider_available_at": "2025-01-30T09:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/news/n_dividend"
+    },
+    {
+      "source_id": "src_n_contract",
+      "kind": "issuer_disclosure",
+      "published_at": "2025-02-25T08:00:00+03:00",
+      "provider_available_at": "2025-02-25T08:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/news/n_contract"
+    },
+    {
+      "source_id": "src_n_contract_copy",
+      "kind": "news_reprint",
+      "published_at": "2025-02-25T08:05:00+03:00",
+      "provider_available_at": "2025-02-25T08:05:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/news/n_contract_copy"
+    },
+    {
+      "source_id": "src_n_outlook_v1",
+      "kind": "issuer_disclosure",
+      "published_at": "2025-03-03T19:15:00+03:00",
+      "provider_available_at": "2025-03-03T19:15:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/news/n_outlook_v1"
+    },
+    {
+      "source_id": "src_n_outlook_v2",
+      "kind": "issuer_disclosure",
+      "published_at": "2025-03-05T10:00:00+03:00",
+      "provider_available_at": "2025-03-05T10:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/news/n_outlook_v2"
+    },
+    {
+      "source_id": "src_n_opinion",
+      "kind": "analyst_opinion",
+      "published_at": "2025-03-04T20:00:00+03:00",
+      "provider_available_at": "2025-03-04T20:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "uri": "https://demo.invalid/news/n_opinion"
+    }
+  ],
+  "documents": [
+    {
+      "news_id": "n_dividend",
+      "version": 1,
+      "asset_ids": [
+        "asset_synx"
+      ],
+      "publisher": "Учебная лента SYNX",
+      "content_type": "issuer_disclosure",
+      "title": "Утверждён дивиденд",
+      "body": "Утверждена выплата 20 RUB на акцию до сплита, или 10 RUB после сплита 1:2. Ex-date 3 марта; дата фиксации 4 марта; платёж запланирован на 17 марта.",
+      "language": "ru",
+      "event_at": "2025-01-30T09:00:00+03:00",
+      "first_published_at": "2025-01-30T09:00:00+03:00",
+      "published_at": "2025-01-30T09:00:00+03:00",
+      "provider_available_at": "2025-01-30T09:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "source_id": "src_n_dividend",
+      "url": "https://demo.invalid/news/n_dividend",
+      "content_sha256": "d2e78a4c186bc914f6930217d3d5712b9a7f7365742e9d9ee7be1246bd44a32f",
+      "supersedes": null,
+      "duplicate_cluster_id": "n_dividend"
+    },
+    {
+      "news_id": "n_contract",
+      "version": 1,
+      "asset_ids": [
+        "asset_synx"
+      ],
+      "publisher": "Учебная лента SYNX",
+      "content_type": "issuer_disclosure",
+      "title": "SYNX заключила контракт",
+      "body": "Подписан контракт на 300 млн RUB. Финансовый эффект и рентабельность не раскрыты.",
+      "language": "ru",
+      "event_at": "2025-02-25T08:00:00+03:00",
+      "first_published_at": "2025-02-25T08:00:00+03:00",
+      "published_at": "2025-02-25T08:00:00+03:00",
+      "provider_available_at": "2025-02-25T08:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "source_id": "src_n_contract",
+      "url": "https://demo.invalid/news/n_contract",
+      "content_sha256": "a7a4b2eb0efc1c81aaacdd52e7b5dab9c5f12b033755b2d98cf70d9cd0609ae1",
+      "supersedes": null,
+      "duplicate_cluster_id": "n_contract"
+    },
+    {
+      "news_id": "n_contract_copy",
+      "version": 1,
+      "asset_ids": [
+        "asset_synx"
+      ],
+      "publisher": "Учебная лента SYNX",
+      "content_type": "news_reprint",
+      "title": "Копия сообщения о контракте",
+      "body": "Подписан контракт на 300 млн RUB. Финансовый эффект и рентабельность не раскрыты.",
+      "language": "ru",
+      "event_at": "2025-02-25T08:05:00+03:00",
+      "first_published_at": "2025-02-25T08:05:00+03:00",
+      "published_at": "2025-02-25T08:05:00+03:00",
+      "provider_available_at": "2025-02-25T08:05:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "source_id": "src_n_contract_copy",
+      "url": "https://demo.invalid/news/n_contract_copy",
+      "content_sha256": "a7a4b2eb0efc1c81aaacdd52e7b5dab9c5f12b033755b2d98cf70d9cd0609ae1",
+      "supersedes": null,
+      "duplicate_cluster_id": "n_contract"
+    },
+    {
+      "news_id": "n_outlook_v1",
+      "version": 1,
+      "asset_ids": [
+        "asset_synx"
+      ],
+      "publisher": "Учебная лента SYNX",
+      "content_type": "issuer_disclosure",
+      "title": "Изменён прогноз выручки",
+      "body": "Компания снизила прогноз роста выручки на год с 12% до 4%.",
+      "language": "ru",
+      "event_at": "2025-03-03T18:55:00+03:00",
+      "first_published_at": "2025-03-03T19:15:00+03:00",
+      "published_at": "2025-03-03T19:15:00+03:00",
+      "provider_available_at": "2025-03-03T19:15:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "source_id": "src_n_outlook_v1",
+      "url": "https://demo.invalid/news/n_outlook_v1",
+      "content_sha256": "901e1f01644a4a7b03d73ff8622d7673a596ab3ffa810ca09f1a1c3e109ed488",
+      "supersedes": null,
+      "duplicate_cluster_id": "n_outlook_v1"
+    },
+    {
+      "news_id": "n_outlook_v2",
+      "version": 2,
+      "asset_ids": [
+        "asset_synx"
+      ],
+      "publisher": "Учебная лента SYNX",
+      "content_type": "issuer_disclosure",
+      "title": "Уточнение прогноза",
+      "body": "Прогноз роста выручки снижен с 12% до 6%, а не до 4%, указанных 3 марта.",
+      "language": "ru",
+      "event_at": "2025-03-03T18:55:00+03:00",
+      "first_published_at": "2025-03-05T10:00:00+03:00",
+      "published_at": "2025-03-05T10:00:00+03:00",
+      "provider_available_at": "2025-03-05T10:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "source_id": "src_n_outlook_v2",
+      "url": "https://demo.invalid/news/n_outlook_v2",
+      "content_sha256": "e1ac7bc92cfc4dbed2c6a2cfbaa3fe579c92763586d96170fdd1868f0eacbbe3",
+      "supersedes": "n_outlook_v1",
+      "duplicate_cluster_id": "n_outlook_v2"
+    },
+    {
+      "news_id": "n_opinion",
+      "version": 1,
+      "asset_ids": [
+        "asset_synx"
+      ],
+      "publisher": "Учебная лента SYNX",
+      "content_type": "analyst_opinion",
+      "title": "Мнение аналитика о падении",
+      "body": "По мнению автора, участники рынка переоценили перспективы компании.",
+      "language": "ru",
+      "event_at": "2025-03-04T20:00:00+03:00",
+      "first_published_at": "2025-03-04T20:00:00+03:00",
+      "published_at": "2025-03-04T20:00:00+03:00",
+      "provider_available_at": "2025-03-04T20:00:00+03:00",
+      "ingested_at": "2025-04-01T06:00:00+03:00",
+      "source_id": "src_n_opinion",
+      "url": "https://demo.invalid/news/n_opinion",
+      "content_sha256": "0600bea04a915e1950e20c2debdfc93e2de14b6978de29c3929bf4f4213b1b68",
+      "supersedes": null,
+      "duplicate_cluster_id": "n_opinion"
+    }
+  ]
+}

@@ -1,0 +1,1231 @@
+{
+  "meta": {
+    "schema_version": "0.1.0",
+    "dataset_id": "synthetic_retrospective_v1",
+    "synthetic": true,
+    "timezone": "Europe/Moscow",
+    "currency": "RUB",
+    "warning": "Все компании, торги, новости и операции вымышлены. .invalid — заглушки ссылок."
+  },
+  "report_id": "report_01",
+  "request_id": "request_01",
+  "financials": {
+    "currency": "RUB",
+    "cost_basis_method": "FIFO",
+    "opening_quantity": "0",
+    "closing_quantity": "30",
+    "gross_purchases": "20800.00",
+    "gross_sale_proceeds": "4800.00",
+    "end_market_value": "15300.00",
+    "price_pnl": "-700.00",
+    "gross_dividends": "400.00",
+    "withheld_dividend_tax": "52.00",
+    "total_fees": "25.60",
+    "gross_total_pnl": "-300.00",
+    "net_total_pnl": "-377.60",
+    "realized_price_pnl_after_allocated_fees": "-209.80",
+    "remaining_cost_basis_including_fees": "15815.80",
+    "unrealized_price_pnl_after_allocated_entry_fees": "-515.80",
+    "net_dividends": "348.00",
+    "account_closing_cash": "84322.40",
+    "account_closing_equity": "99622.40",
+    "closing_position_weight": 0.15357992,
+    "net_pnl_divided_by_gross_purchases": -0.01815385,
+    "ratio_note": "Отношение P&L к сумме покупок; не TWR, IRR или годовая доходность.",
+    "stock_buy_and_hold_cash_dividend_return": 0.04,
+    "market_total_return": 0.04,
+    "sector_total_return": 0.02,
+    "holding_return_note": "Одна покупка в начале, дивиденд хранится деньгами; без реинвестирования, налогов и комиссий.",
+    "counterfactual": {
+      "method": "Same gross purchases and sales in a frictionless total-return index",
+      "execution_assumption": "Индекс доступен по значению закрытия в дату сделки; учебное упрощение.",
+      "market_gross_pnl": "522.15",
+      "actual_gross_pnl": "-300.00",
+      "actual_minus_market_gross_pnl": "-822.15",
+      "interpretation": "Сценарное сравнение; не причинное разложение и не доказанная упущенная прибыль."
+    },
+    "evidence_ids": [
+      "op_buy_1",
+      "op_buy_2",
+      "op_sell_1",
+      "op_dividend",
+      "op_dividend_tax",
+      "ca_split",
+      "ca_dividend",
+      "bar_asset_synx_2025-03-31"
+    ]
+  },
+  "normalized_trades": [
+    {
+      "operation_id": "op_buy_1",
+      "quantity_in_end_date_units": "20",
+      "price_in_end_date_units": "500.00",
+      "gross_cash": "10000.00",
+      "fee": "10.00",
+      "split_adjustment_factor": "2"
+    },
+    {
+      "operation_id": "op_buy_2",
+      "quantity_in_end_date_units": "20",
+      "price_in_end_date_units": "540.00",
+      "gross_cash": "10800.00",
+      "fee": "10.80",
+      "split_adjustment_factor": "1"
+    },
+    {
+      "operation_id": "op_sell_1",
+      "quantity_in_end_date_units": "10",
+      "price_in_end_date_units": "480.00",
+      "gross_cash": "4800.00",
+      "fee": "4.80",
+      "split_adjustment_factor": "1"
+    }
+  ],
+  "account_timeline": [
+    {
+      "event_id": "op_buy_1",
+      "at": "2025-02-03T12:00:00+03:00",
+      "held_quantity": "10",
+      "cash": "89990.00",
+      "position_value": "10000.00",
+      "account_equity": "99990.00",
+      "weight_after_event": 0.10001,
+      "valuation_basis": "execution_price"
+    },
+    {
+      "event_id": "split",
+      "at": "2025-02-17T09:00:00+03:00",
+      "held_quantity": "20",
+      "cash": "89990.00",
+      "position_value": "10000.00",
+      "account_equity": "99990.00",
+      "weight_after_event": 0.10001,
+      "valuation_basis": "synthetic_event_mark"
+    },
+    {
+      "event_id": "op_buy_2",
+      "at": "2025-02-25T18:40:00+03:00",
+      "held_quantity": "40",
+      "cash": "79179.20",
+      "position_value": "21600.00",
+      "account_equity": "100779.20",
+      "weight_after_event": 0.21432994,
+      "valuation_basis": "execution_price"
+    },
+    {
+      "event_id": "dividend",
+      "at": "2025-03-17T10:00:00+03:00",
+      "held_quantity": "40",
+      "cash": "79579.20",
+      "position_value": "19142.86",
+      "account_equity": "98722.06",
+      "weight_after_event": 0.19390659,
+      "valuation_basis": "synthetic_event_mark"
+    },
+    {
+      "event_id": "tax",
+      "at": "2025-03-17T10:00:01+03:00",
+      "held_quantity": "40",
+      "cash": "79527.20",
+      "position_value": "19142.86",
+      "account_equity": "98670.06",
+      "weight_after_event": 0.19400878,
+      "valuation_basis": "synthetic_event_mark"
+    },
+    {
+      "event_id": "op_sell_1",
+      "at": "2025-03-20T14:00:00+03:00",
+      "held_quantity": "30",
+      "cash": "84322.40",
+      "position_value": "14400.00",
+      "account_equity": "98722.40",
+      "weight_after_event": 0.14586355,
+      "valuation_basis": "execution_price"
+    }
+  ],
+  "factor_model": {
+    "model_id": "factor_model_01",
+    "formula": "stock_total_return = alpha + beta_market * market_TR_return + beta_sector_excess * (sector_TR_return - market_TR_return) + residual",
+    "training_from": "2024-09-03",
+    "training_through": "2025-01-31",
+    "fit_as_of": "2025-02-03T09:00:00+03:00",
+    "observations": 109,
+    "coefficients": {
+      "alpha": -0.0002984235498976921,
+      "beta_market": 0.7958834790269353,
+      "beta_sector_excess": 0.39997572851229285
+    },
+    "residual_sigma": 0.00274479742573995,
+    "minimum_absolute_residual": 0.02,
+    "sigma_multiplier": 3,
+    "limitations": [
+      "Один учебный OLS; порог не откалиброван на реальном рынке.",
+      "Остаток — необъяснённое моделью движение, а не доказанная причина.",
+      "Замороженное окно до периода; без подгонки по результату позиции."
+    ]
+  },
+  "daily_returns": [
+    {
+      "session_date": "2025-02-03",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.0,
+      "sector_return": 0.0,
+      "expected_return": -0.00029842,
+      "residual": 0.00029842,
+      "residual_z_score": 0.1087,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-01-31",
+        "bar_asset_synx_2025-02-03",
+        "bar_index_market_tr_2025-01-31",
+        "bar_index_market_tr_2025-02-03",
+        "bar_index_sector_tr_2025-01-31",
+        "bar_index_sector_tr_2025-02-03"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-04",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00133333,
+      "sector_return": 0.001,
+      "expected_return": 0.00062943,
+      "residual": -0.00062943,
+      "residual_z_score": -0.2293,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-03",
+        "bar_asset_synx_2025-02-04",
+        "bar_index_market_tr_2025-02-03",
+        "bar_index_market_tr_2025-02-04",
+        "bar_index_sector_tr_2025-02-03",
+        "bar_index_sector_tr_2025-02-04"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-05",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00133156,
+      "sector_return": 0.000999,
+      "expected_return": 0.00062833,
+      "residual": -0.00062833,
+      "residual_z_score": -0.2289,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-04",
+        "bar_asset_synx_2025-02-05",
+        "bar_index_market_tr_2025-02-04",
+        "bar_index_market_tr_2025-02-05",
+        "bar_index_sector_tr_2025-02-04",
+        "bar_index_sector_tr_2025-02-05"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-06",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00132979,
+      "sector_return": 0.000998,
+      "expected_return": 0.00062723,
+      "residual": -0.00062723,
+      "residual_z_score": -0.2285,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-05",
+        "bar_asset_synx_2025-02-06",
+        "bar_index_market_tr_2025-02-05",
+        "bar_index_market_tr_2025-02-06",
+        "bar_index_sector_tr_2025-02-05",
+        "bar_index_sector_tr_2025-02-06"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-07",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00132802,
+      "sector_return": 0.00099701,
+      "expected_return": 0.00062613,
+      "residual": -0.00062613,
+      "residual_z_score": -0.2281,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-06",
+        "bar_asset_synx_2025-02-07",
+        "bar_index_market_tr_2025-02-06",
+        "bar_index_market_tr_2025-02-07",
+        "bar_index_sector_tr_2025-02-06",
+        "bar_index_sector_tr_2025-02-07"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-10",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00132626,
+      "sector_return": 0.00099602,
+      "expected_return": 0.00062504,
+      "residual": -0.00062504,
+      "residual_z_score": -0.2277,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-07",
+        "bar_asset_synx_2025-02-10",
+        "bar_index_market_tr_2025-02-07",
+        "bar_index_market_tr_2025-02-10",
+        "bar_index_sector_tr_2025-02-07",
+        "bar_index_sector_tr_2025-02-10"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-11",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.0013245,
+      "sector_return": 0.00099502,
+      "expected_return": 0.00062394,
+      "residual": -0.00062394,
+      "residual_z_score": -0.2273,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-10",
+        "bar_asset_synx_2025-02-11",
+        "bar_index_market_tr_2025-02-10",
+        "bar_index_market_tr_2025-02-11",
+        "bar_index_sector_tr_2025-02-10",
+        "bar_index_sector_tr_2025-02-11"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-12",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00132275,
+      "sector_return": 0.00099404,
+      "expected_return": 0.00062285,
+      "residual": -0.00062285,
+      "residual_z_score": -0.2269,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-11",
+        "bar_asset_synx_2025-02-12",
+        "bar_index_market_tr_2025-02-11",
+        "bar_index_market_tr_2025-02-12",
+        "bar_index_sector_tr_2025-02-11",
+        "bar_index_sector_tr_2025-02-12"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-13",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.001321,
+      "sector_return": 0.00099305,
+      "expected_return": 0.00062177,
+      "residual": -0.00062177,
+      "residual_z_score": -0.2265,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-12",
+        "bar_asset_synx_2025-02-13",
+        "bar_index_market_tr_2025-02-12",
+        "bar_index_market_tr_2025-02-13",
+        "bar_index_sector_tr_2025-02-12",
+        "bar_index_sector_tr_2025-02-13"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-14",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00131926,
+      "sector_return": 0.00099206,
+      "expected_return": 0.00062068,
+      "residual": -0.00062068,
+      "residual_z_score": -0.2261,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-13",
+        "bar_asset_synx_2025-02-14",
+        "bar_index_market_tr_2025-02-13",
+        "bar_index_market_tr_2025-02-14",
+        "bar_index_sector_tr_2025-02-13",
+        "bar_index_sector_tr_2025-02-14"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-17",
+      "adjusted_total_return": 0.0,
+      "market_return": 0.00131752,
+      "sector_return": 0.00099108,
+      "expected_return": 0.0006196,
+      "residual": -0.0006196,
+      "residual_z_score": -0.2257,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-14",
+        "bar_asset_synx_2025-02-17",
+        "bar_index_market_tr_2025-02-14",
+        "bar_index_market_tr_2025-02-17",
+        "bar_index_sector_tr_2025-02-14",
+        "bar_index_sector_tr_2025-02-17"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": [
+        "ca_split"
+      ]
+    },
+    {
+      "session_date": "2025-02-18",
+      "adjusted_total_return": 0.00133333,
+      "market_return": 0.00131579,
+      "sector_return": 0.0009901,
+      "expected_return": 0.00061852,
+      "residual": 0.00071481,
+      "residual_z_score": 0.2604,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-17",
+        "bar_asset_synx_2025-02-18",
+        "bar_index_market_tr_2025-02-17",
+        "bar_index_market_tr_2025-02-18",
+        "bar_index_sector_tr_2025-02-17",
+        "bar_index_sector_tr_2025-02-18"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-19",
+      "adjusted_total_return": 0.00133156,
+      "market_return": 0.00131406,
+      "sector_return": 0.00098912,
+      "expected_return": 0.00061745,
+      "residual": 0.00071411,
+      "residual_z_score": 0.2602,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-18",
+        "bar_asset_synx_2025-02-19",
+        "bar_index_market_tr_2025-02-18",
+        "bar_index_market_tr_2025-02-19",
+        "bar_index_sector_tr_2025-02-18",
+        "bar_index_sector_tr_2025-02-19"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-20",
+      "adjusted_total_return": 0.00132979,
+      "market_return": 0.00131234,
+      "sector_return": 0.00098814,
+      "expected_return": 0.00061637,
+      "residual": 0.00071341,
+      "residual_z_score": 0.2599,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-19",
+        "bar_asset_synx_2025-02-20",
+        "bar_index_market_tr_2025-02-19",
+        "bar_index_market_tr_2025-02-20",
+        "bar_index_sector_tr_2025-02-19",
+        "bar_index_sector_tr_2025-02-20"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-21",
+      "adjusted_total_return": 0.00298805,
+      "market_return": 0.00131062,
+      "sector_return": 0.00098717,
+      "expected_return": 0.0006153,
+      "residual": 0.00237275,
+      "residual_z_score": 0.8645,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-20",
+        "bar_asset_synx_2025-02-21",
+        "bar_index_market_tr_2025-02-20",
+        "bar_index_market_tr_2025-02-21",
+        "bar_index_sector_tr_2025-02-20",
+        "bar_index_sector_tr_2025-02-21"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-24",
+      "adjusted_total_return": 0.00297915,
+      "market_return": 0.0013089,
+      "sector_return": 0.00098619,
+      "expected_return": 0.00061423,
+      "residual": 0.00236491,
+      "residual_z_score": 0.8616,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-21",
+        "bar_asset_synx_2025-02-24",
+        "bar_index_market_tr_2025-02-21",
+        "bar_index_market_tr_2025-02-24",
+        "bar_index_sector_tr_2025-02-21",
+        "bar_index_sector_tr_2025-02-24"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-25",
+      "adjusted_total_return": 0.06930693,
+      "market_return": 0.00392157,
+      "sector_return": 0.00492611,
+      "expected_return": 0.00322448,
+      "residual": 0.06608245,
+      "residual_z_score": 24.0755,
+      "is_anomaly": true,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-24",
+        "bar_asset_synx_2025-02-25",
+        "bar_index_market_tr_2025-02-24",
+        "bar_index_market_tr_2025-02-25",
+        "bar_index_sector_tr_2025-02-24",
+        "bar_index_sector_tr_2025-02-25"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-26",
+      "adjusted_total_return": -0.00617284,
+      "market_return": 0.00024414,
+      "sector_return": -0.0004902,
+      "expected_return": -0.00039783,
+      "residual": -0.00577501,
+      "residual_z_score": -2.104,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-25",
+        "bar_asset_synx_2025-02-26",
+        "bar_index_market_tr_2025-02-25",
+        "bar_index_market_tr_2025-02-26",
+        "bar_index_sector_tr_2025-02-25",
+        "bar_index_sector_tr_2025-02-26"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-27",
+      "adjusted_total_return": -0.00621118,
+      "market_return": 0.00024408,
+      "sector_return": -0.00049044,
+      "expected_return": -0.00039795,
+      "residual": -0.00581323,
+      "residual_z_score": -2.1179,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-26",
+        "bar_asset_synx_2025-02-27",
+        "bar_index_market_tr_2025-02-26",
+        "bar_index_market_tr_2025-02-27",
+        "bar_index_sector_tr_2025-02-26",
+        "bar_index_sector_tr_2025-02-27"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-02-28",
+      "adjusted_total_return": -0.00625,
+      "market_return": 0.00024402,
+      "sector_return": -0.00049068,
+      "expected_return": -0.00039807,
+      "residual": -0.00585193,
+      "residual_z_score": -2.132,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-27",
+        "bar_asset_synx_2025-02-28",
+        "bar_index_market_tr_2025-02-27",
+        "bar_index_market_tr_2025-02-28",
+        "bar_index_sector_tr_2025-02-27",
+        "bar_index_sector_tr_2025-02-28"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-03",
+      "adjusted_total_return": -0.03773585,
+      "market_return": 0.00024396,
+      "sector_return": -0.00049092,
+      "expected_return": -0.00039819,
+      "residual": -0.03733766,
+      "residual_z_score": -13.6031,
+      "is_anomaly": true,
+      "evidence_ids": [
+        "bar_asset_synx_2025-02-28",
+        "bar_asset_synx_2025-03-03",
+        "bar_index_market_tr_2025-02-28",
+        "bar_index_market_tr_2025-03-03",
+        "bar_index_sector_tr_2025-02-28",
+        "bar_index_sector_tr_2025-03-03"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": [
+        "ca_dividend"
+      ]
+    },
+    {
+      "session_date": "2025-03-04",
+      "adjusted_total_return": -0.05,
+      "market_return": -0.00487805,
+      "sector_return": -0.00785855,
+      "expected_return": -0.00537291,
+      "residual": -0.04462709,
+      "residual_z_score": -16.2588,
+      "is_anomaly": true,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-03",
+        "bar_asset_synx_2025-03-04",
+        "bar_index_market_tr_2025-03-03",
+        "bar_index_market_tr_2025-03-04",
+        "bar_index_sector_tr_2025-03-03",
+        "bar_index_sector_tr_2025-03-04"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-05",
+      "adjusted_total_return": 0.00350877,
+      "market_return": 0.00065359,
+      "sector_return": 0.00066007,
+      "expected_return": 0.00022435,
+      "residual": 0.00328442,
+      "residual_z_score": 1.1966,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-04",
+        "bar_asset_synx_2025-03-05",
+        "bar_index_market_tr_2025-03-04",
+        "bar_index_market_tr_2025-03-05",
+        "bar_index_sector_tr_2025-03-04",
+        "bar_index_sector_tr_2025-03-05"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-06",
+      "adjusted_total_return": 0.0034965,
+      "market_return": 0.00065317,
+      "sector_return": 0.00065963,
+      "expected_return": 0.00022401,
+      "residual": 0.0032725,
+      "residual_z_score": 1.1923,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-05",
+        "bar_asset_synx_2025-03-06",
+        "bar_index_market_tr_2025-03-05",
+        "bar_index_market_tr_2025-03-06",
+        "bar_index_sector_tr_2025-03-05",
+        "bar_index_sector_tr_2025-03-06"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-07",
+      "adjusted_total_return": 0.00348432,
+      "market_return": 0.00065274,
+      "sector_return": 0.0006592,
+      "expected_return": 0.00022366,
+      "residual": 0.00326066,
+      "residual_z_score": 1.1879,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-06",
+        "bar_asset_synx_2025-03-07",
+        "bar_index_market_tr_2025-03-06",
+        "bar_index_market_tr_2025-03-07",
+        "bar_index_sector_tr_2025-03-06",
+        "bar_index_sector_tr_2025-03-07"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-10",
+      "adjusted_total_return": -0.0625,
+      "market_return": -0.00097847,
+      "sector_return": -0.00098814,
+      "expected_return": -0.00108104,
+      "residual": -0.06141896,
+      "residual_z_score": -22.3765,
+      "is_anomaly": true,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-07",
+        "bar_asset_synx_2025-03-10",
+        "bar_index_market_tr_2025-03-07",
+        "bar_index_market_tr_2025-03-10",
+        "bar_index_sector_tr_2025-03-07",
+        "bar_index_sector_tr_2025-03-10"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-11",
+      "adjusted_total_return": 0.01269841,
+      "market_return": 0.00110186,
+      "sector_return": 0.00049456,
+      "expected_return": 0.00033562,
+      "residual": 0.01236279,
+      "residual_z_score": 4.5041,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-10",
+        "bar_asset_synx_2025-03-11",
+        "bar_index_market_tr_2025-03-10",
+        "bar_index_market_tr_2025-03-11",
+        "bar_index_sector_tr_2025-03-10",
+        "bar_index_sector_tr_2025-03-11"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-12",
+      "adjusted_total_return": 0.01253918,
+      "market_return": 0.00110065,
+      "sector_return": 0.00049432,
+      "expected_return": 0.00033505,
+      "residual": 0.01220414,
+      "residual_z_score": 4.4463,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-11",
+        "bar_asset_synx_2025-03-12",
+        "bar_index_market_tr_2025-03-11",
+        "bar_index_market_tr_2025-03-12",
+        "bar_index_sector_tr_2025-03-11",
+        "bar_index_sector_tr_2025-03-12"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-13",
+      "adjusted_total_return": 0.0123839,
+      "market_return": 0.00109944,
+      "sector_return": 0.00049407,
+      "expected_return": 0.00033447,
+      "residual": 0.01204943,
+      "residual_z_score": 4.3899,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-12",
+        "bar_asset_synx_2025-03-13",
+        "bar_index_market_tr_2025-03-12",
+        "bar_index_market_tr_2025-03-13",
+        "bar_index_sector_tr_2025-03-12",
+        "bar_index_sector_tr_2025-03-13"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-14",
+      "adjusted_total_return": 0.01223242,
+      "market_return": 0.00109823,
+      "sector_return": 0.00049383,
+      "expected_return": 0.00033389,
+      "residual": 0.01189852,
+      "residual_z_score": 4.3349,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-13",
+        "bar_asset_synx_2025-03-14",
+        "bar_index_market_tr_2025-03-13",
+        "bar_index_market_tr_2025-03-14",
+        "bar_index_sector_tr_2025-03-13",
+        "bar_index_sector_tr_2025-03-14"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-17",
+      "adjusted_total_return": 0.01208459,
+      "market_return": 0.00109703,
+      "sector_return": 0.00049358,
+      "expected_return": 0.00033332,
+      "residual": 0.01175127,
+      "residual_z_score": 4.2813,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-14",
+        "bar_asset_synx_2025-03-17",
+        "bar_index_market_tr_2025-03-14",
+        "bar_index_market_tr_2025-03-17",
+        "bar_index_sector_tr_2025-03-14",
+        "bar_index_sector_tr_2025-03-17"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-18",
+      "adjusted_total_return": 0.0119403,
+      "market_return": 0.00109582,
+      "sector_return": 0.00049334,
+      "expected_return": 0.00033275,
+      "residual": 0.01160755,
+      "residual_z_score": 4.2289,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-17",
+        "bar_asset_synx_2025-03-18",
+        "bar_index_market_tr_2025-03-17",
+        "bar_index_market_tr_2025-03-18",
+        "bar_index_sector_tr_2025-03-17",
+        "bar_index_sector_tr_2025-03-18"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-19",
+      "adjusted_total_return": 0.01179941,
+      "market_return": 0.00109462,
+      "sector_return": 0.0004931,
+      "expected_return": 0.00033217,
+      "residual": 0.01146724,
+      "residual_z_score": 4.1778,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-18",
+        "bar_asset_synx_2025-03-19",
+        "bar_index_market_tr_2025-03-18",
+        "bar_index_market_tr_2025-03-19",
+        "bar_index_sector_tr_2025-03-18",
+        "bar_index_sector_tr_2025-03-19"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-20",
+      "adjusted_total_return": -0.02040816,
+      "market_return": 0.00109343,
+      "sector_return": 0.00049285,
+      "expected_return": 0.0003316,
+      "residual": -0.02073977,
+      "residual_z_score": -7.556,
+      "is_anomaly": true,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-19",
+        "bar_asset_synx_2025-03-20",
+        "bar_index_market_tr_2025-03-19",
+        "bar_index_market_tr_2025-03-20",
+        "bar_index_sector_tr_2025-03-19",
+        "bar_index_sector_tr_2025-03-20"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-21",
+      "adjusted_total_return": 0.00892857,
+      "market_return": 0.00138696,
+      "sector_return": 0.00070373,
+      "expected_return": 0.00053216,
+      "residual": 0.00839641,
+      "residual_z_score": 3.059,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-20",
+        "bar_asset_synx_2025-03-21",
+        "bar_index_market_tr_2025-03-20",
+        "bar_index_market_tr_2025-03-21",
+        "bar_index_sector_tr_2025-03-20",
+        "bar_index_sector_tr_2025-03-21"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-24",
+      "adjusted_total_return": 0.00884956,
+      "market_return": 0.00138504,
+      "sector_return": 0.00070323,
+      "expected_return": 0.0005312,
+      "residual": 0.00831836,
+      "residual_z_score": 3.0306,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-21",
+        "bar_asset_synx_2025-03-24",
+        "bar_index_market_tr_2025-03-21",
+        "bar_index_market_tr_2025-03-24",
+        "bar_index_sector_tr_2025-03-21",
+        "bar_index_sector_tr_2025-03-24"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-25",
+      "adjusted_total_return": 0.00877193,
+      "market_return": 0.00138313,
+      "sector_return": 0.00070274,
+      "expected_return": 0.00053025,
+      "residual": 0.00824168,
+      "residual_z_score": 3.0027,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-24",
+        "bar_asset_synx_2025-03-25",
+        "bar_index_market_tr_2025-03-24",
+        "bar_index_market_tr_2025-03-25",
+        "bar_index_sector_tr_2025-03-24",
+        "bar_index_sector_tr_2025-03-25"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-26",
+      "adjusted_total_return": 0.00869565,
+      "market_return": 0.00138122,
+      "sector_return": 0.00070225,
+      "expected_return": 0.00052929,
+      "residual": 0.00816636,
+      "residual_z_score": 2.9752,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-25",
+        "bar_asset_synx_2025-03-26",
+        "bar_index_market_tr_2025-03-25",
+        "bar_index_market_tr_2025-03-26",
+        "bar_index_sector_tr_2025-03-25",
+        "bar_index_sector_tr_2025-03-26"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-27",
+      "adjusted_total_return": 0.00862069,
+      "market_return": 0.00137931,
+      "sector_return": 0.00070175,
+      "expected_return": 0.00052834,
+      "residual": 0.00809235,
+      "residual_z_score": 2.9482,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-26",
+        "bar_asset_synx_2025-03-27",
+        "bar_index_market_tr_2025-03-26",
+        "bar_index_market_tr_2025-03-27",
+        "bar_index_sector_tr_2025-03-26",
+        "bar_index_sector_tr_2025-03-27"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-28",
+      "adjusted_total_return": 0.00854701,
+      "market_return": 0.00137741,
+      "sector_return": 0.00070126,
+      "expected_return": 0.00052739,
+      "residual": 0.00801962,
+      "residual_z_score": 2.9218,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-27",
+        "bar_asset_synx_2025-03-28",
+        "bar_index_market_tr_2025-03-27",
+        "bar_index_market_tr_2025-03-28",
+        "bar_index_sector_tr_2025-03-27",
+        "bar_index_sector_tr_2025-03-28"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    },
+    {
+      "session_date": "2025-03-31",
+      "adjusted_total_return": 0.00847458,
+      "market_return": 0.00137552,
+      "sector_return": 0.00070077,
+      "expected_return": 0.00052645,
+      "residual": 0.00794813,
+      "residual_z_score": 2.8957,
+      "is_anomaly": false,
+      "evidence_ids": [
+        "bar_asset_synx_2025-03-28",
+        "bar_asset_synx_2025-03-31",
+        "bar_index_market_tr_2025-03-28",
+        "bar_index_market_tr_2025-03-31",
+        "bar_index_sector_tr_2025-03-28",
+        "bar_index_sector_tr_2025-03-31"
+      ],
+      "model_id": "factor_model_01",
+      "adjustment_ids": []
+    }
+  ],
+  "episodes": [
+    {
+      "episode_id": "episode_2025-02-25",
+      "session_date": "2025-02-25",
+      "detection_granularity": "daily_close_to_close",
+      "onset_precision": "Неизвестно: нет внутридневного ряда; дата не определяет момент начала движения.",
+      "evidence_cutoff": "2025-02-25T09:00:00+03:00",
+      "cutoff_policy": "Консервативно: только сообщения до начала сессии.",
+      "residual": 0.06608245,
+      "residual_z_score": 24.0755,
+      "source_ids": [
+        "src_n_contract"
+      ],
+      "selected_news_ids": [
+        "n_contract"
+      ],
+      "excluded": [
+        {
+          "news_id": "n_contract_copy",
+          "reason": "duplicate_not_independent_evidence"
+        }
+      ],
+      "attribution_status": "plausible_association",
+      "explanation": "Контракт опубликован до сессии; причинность не доказана.",
+      "search_scope": "Только синтетическая лента 01_news.json, а не весь рынок."
+    },
+    {
+      "episode_id": "episode_2025-03-03",
+      "session_date": "2025-03-03",
+      "detection_granularity": "daily_close_to_close",
+      "onset_precision": "Неизвестно: нет внутридневного ряда; дата не определяет момент начала движения.",
+      "evidence_cutoff": "2025-03-03T09:00:00+03:00",
+      "cutoff_policy": "Консервативно: только сообщения до начала сессии.",
+      "residual": -0.03733766,
+      "residual_z_score": -13.6031,
+      "source_ids": [],
+      "selected_news_ids": [],
+      "excluded": [],
+      "attribution_status": "unexplained",
+      "explanation": "В учебной ленте нет подходящего независимого сообщения.",
+      "search_scope": "Только синтетическая лента 01_news.json, а не весь рынок."
+    },
+    {
+      "episode_id": "episode_2025-03-04",
+      "session_date": "2025-03-04",
+      "detection_granularity": "daily_close_to_close",
+      "onset_precision": "Неизвестно: нет внутридневного ряда; дата не определяет момент начала движения.",
+      "evidence_cutoff": "2025-03-04T09:00:00+03:00",
+      "cutoff_policy": "Консервативно: только сообщения до начала сессии.",
+      "residual": -0.04462709,
+      "residual_z_score": -16.2588,
+      "source_ids": [
+        "src_n_outlook_v1"
+      ],
+      "selected_news_ids": [
+        "n_outlook_v1"
+      ],
+      "excluded": [
+        {
+          "news_id": "n_outlook_v2",
+          "reason": "correction_after_cutoff"
+        },
+        {
+          "news_id": "n_opinion",
+          "reason": "opinion_and_after_session"
+        }
+      ],
+      "attribution_status": "plausible_association",
+      "explanation": "Прогноз снижен до сессии; 5 марта цифра исправлена на 6%.",
+      "search_scope": "Только синтетическая лента 01_news.json, а не весь рынок."
+    },
+    {
+      "episode_id": "episode_2025-03-10",
+      "session_date": "2025-03-10",
+      "detection_granularity": "daily_close_to_close",
+      "onset_precision": "Неизвестно: нет внутридневного ряда; дата не определяет момент начала движения.",
+      "evidence_cutoff": "2025-03-10T09:00:00+03:00",
+      "cutoff_policy": "Консервативно: только сообщения до начала сессии.",
+      "residual": -0.06141896,
+      "residual_z_score": -22.3765,
+      "source_ids": [],
+      "selected_news_ids": [],
+      "excluded": [],
+      "attribution_status": "unexplained",
+      "explanation": "В учебной ленте нет подходящего независимого сообщения.",
+      "search_scope": "Только синтетическая лента 01_news.json, а не весь рынок."
+    },
+    {
+      "episode_id": "episode_2025-03-20",
+      "session_date": "2025-03-20",
+      "detection_granularity": "daily_close_to_close",
+      "onset_precision": "Неизвестно: нет внутридневного ряда; дата не определяет момент начала движения.",
+      "evidence_cutoff": "2025-03-20T09:00:00+03:00",
+      "cutoff_policy": "Консервативно: только сообщения до начала сессии.",
+      "residual": -0.02073977,
+      "residual_z_score": -7.556,
+      "source_ids": [],
+      "selected_news_ids": [],
+      "excluded": [],
+      "attribution_status": "unexplained",
+      "explanation": "В учебной ленте нет подходящего независимого сообщения.",
+      "search_scope": "Только синтетическая лента 01_news.json, а не весь рынок."
+    }
+  ],
+  "rule_checks": [
+    {
+      "check_id": "check_weight_initial",
+      "rule_id": "max_weight",
+      "operation_id": "op_buy_1",
+      "status": "complied",
+      "observed": 0.10001,
+      "threshold": 0.15,
+      "evidence_ids": [
+        "op_buy_1",
+        "opening_account",
+        "quote_buy_1",
+        "rules_v1"
+      ]
+    },
+    {
+      "check_id": "check_weight",
+      "rule_id": "max_weight",
+      "operation_id": "op_buy_2",
+      "status": "violated",
+      "observed": 0.21432994,
+      "threshold": 0.15,
+      "evidence_ids": [
+        "op_buy_1",
+        "op_buy_2",
+        "ca_split",
+        "opening_account",
+        "quote_buy_2",
+        "rules_v1"
+      ]
+    },
+    {
+      "check_id": "check_jump",
+      "rule_id": "avoid_jump_buy",
+      "operation_id": "op_buy_2",
+      "status": "violated",
+      "observed": 0.06930693,
+      "threshold": 0.05,
+      "as_of": "2025-02-25T18:40:00+03:00",
+      "evidence_ids": [
+        "op_buy_2",
+        "quote_buy_2",
+        "rules_v1"
+      ],
+      "interpretation": "Покупка после роста; психологический мотив по этим данным неизвестен."
+    },
+    {
+      "check_id": "check_entry_thesis",
+      "rule_id": "thesis_before_buy",
+      "operation_ids": [
+        "op_buy_1",
+        "op_buy_2"
+      ],
+      "status": "complied",
+      "evidence_ids": [
+        "thesis_dividend",
+        "op_buy_1",
+        "op_buy_2",
+        "rules_v1"
+      ]
+    },
+    {
+      "check_id": "check_average",
+      "rule_id": "avoid_averaging_down",
+      "operation_id": "op_buy_2",
+      "status": "complied",
+      "observed_price_vs_held_cost": 0.08,
+      "evidence_ids": [
+        "op_buy_1",
+        "op_buy_2",
+        "ca_split",
+        "rules_v1"
+      ]
+    },
+    {
+      "check_id": "check_horizon",
+      "rule_id": "hold_to_deadline",
+      "operation_id": "op_sell_1",
+      "status": "complied_by_exception",
+      "weight_after_sale": 0.14586355,
+      "exception": "Recorded risk rebalance; concentration restored to <= 15%.",
+      "evidence_ids": [
+        "op_sell_1",
+        "quote_sell_1",
+        "rules_v1"
+      ]
+    },
+    {
+      "check_id": "check_weight_sale",
+      "rule_id": "max_weight",
+      "operation_id": "op_sell_1",
+      "status": "complied",
+      "observed": 0.14586355,
+      "threshold": 0.15,
+      "evidence_ids": [
+        "op_sell_1",
+        "quote_sell_1",
+        "rules_v1"
+      ]
+    }
+  ],
+  "thesis_checks": [
+    {
+      "check_id": "check_dividend",
+      "thesis_id": "thesis_dividend",
+      "as_of": "2025-03-31T23:59:59+03:00",
+      "status": "supported",
+      "eligible_quantity": "40",
+      "observed_gross_per_share": "10.00",
+      "actual_payment_date": "2025-03-17",
+      "threshold": "10.00",
+      "deadline": "2025-03-31",
+      "evidence_ids": [
+        "op_dividend",
+        "ca_dividend",
+        "ca_split",
+        "op_buy_1",
+        "op_buy_2"
+      ],
+      "limitation": "Подтверждён только зафиксированный дивидендный тезис, не качество всей инвестиции."
+    }
+  ],
+  "verdict": {
+    "process": "violated_declared_rules",
+    "outcome": "loss",
+    "thesis": "supported",
+    "matrix_cell": "rules_violated__loss",
+    "process_scope": "Только проверенные пользовательские правила; не универсальная оценка разумности.",
+    "evidence_ids": [
+      "check_weight",
+      "check_jump",
+      "check_dividend"
+    ]
+  }
+}

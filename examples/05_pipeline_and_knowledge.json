@@ -1,0 +1,368 @@
+{
+  "meta": {
+    "schema_version": "0.1.0",
+    "dataset_id": "synthetic_retrospective_v1",
+    "synthetic": true,
+    "timezone": "Europe/Moscow",
+    "currency": "RUB",
+    "warning": "Все компании, торги, новости и операции вымышлены. .invalid — заглушки ссылок."
+  },
+  "run_id": "run_01",
+  "report_id": "report_01",
+  "as_of": "2025-04-01T10:00:00+03:00",
+  "mode": "offline_synthetic_reference",
+  "input_manifest": [
+    {
+      "file": "01_news.json",
+      "sha256": "617adcce135b851adbf5497655615983283e1a78ed92add43f9b64dee1d2549f"
+    },
+    {
+      "file": "02_market.json",
+      "sha256": "321b073312941510415e3007c6c77e72235df9ec4c885c5e0fe5ccad6aae4a65"
+    },
+    {
+      "file": "03_user_actions.json",
+      "sha256": "998364d27239908d2444df8282aff252c66dd4a7d89111de0af33aceb301c743"
+    }
+  ],
+  "versions": {
+    "calculator": "demo_v1",
+    "rules": "rules_v1",
+    "factor_model": "factor_model_01",
+    "prompt": "reference_card_v1",
+    "llm": null
+  },
+  "quality_gates": {
+    "money_reconciled": true,
+    "cash_equity_reconciled": true,
+    "no_short_sale": true,
+    "all_sources_resolve": true,
+    "selected_news_before_cutoff": true,
+    "training_precedes_period": true,
+    "synthetic_urls_are_placeholders": true,
+    "live_source_content_verified": false,
+    "llm_called": false,
+    "note": "Карточка — вручную заданный эталон с программной проверкой связей и сумм. LLM и поисковый API здесь не запускались."
+  },
+  "stages": [
+    {
+      "stage": "resolve_request",
+      "inputs": [
+        "request_01"
+      ],
+      "outputs": [
+        "asset_synx",
+        "2025-02-03/2025-03-31"
+      ]
+    },
+    {
+      "stage": "snapshot_and_authorize",
+      "inputs": [
+        "account_demo"
+      ],
+      "outputs": [
+        "input_manifest"
+      ]
+    },
+    {
+      "stage": "ingest_and_version",
+      "inputs": [
+        "01_news.json",
+        "02_market.json",
+        "03_user_actions.json"
+      ],
+      "outputs": [
+        "immutable_source_rows"
+      ]
+    },
+    {
+      "stage": "normalize_and_validate",
+      "inputs": [
+        "immutable_source_rows"
+      ],
+      "outputs": [
+        "normalized_trades",
+        "quality_gates"
+      ]
+    },
+    {
+      "stage": "reconstruct_position",
+      "inputs": [
+        "normalized_trades",
+        "ca_split",
+        "ca_dividend"
+      ],
+      "outputs": [
+        "account_timeline",
+        "financials"
+      ]
+    },
+    {
+      "stage": "fit_prior_factor_model",
+      "inputs": [
+        "pre_period_daily_bars"
+      ],
+      "outputs": [
+        "factor_model_01"
+      ]
+    },
+    {
+      "stage": "detect_residual_episodes",
+      "inputs": [
+        "factor_model_01",
+        "daily_bars"
+      ],
+      "outputs": [
+        "daily_returns",
+        "episodes"
+      ]
+    },
+    {
+      "stage": "retrieve_point_in_time_evidence",
+      "inputs": [
+        "episodes",
+        "01_news.json"
+      ],
+      "outputs": [
+        "selected_news_ids",
+        "excluded_news"
+      ]
+    },
+    {
+      "stage": "evaluate_rules_and_thesis",
+      "inputs": [
+        "rules_v1",
+        "thesis_dividend",
+        "account_timeline"
+      ],
+      "outputs": [
+        "rule_checks",
+        "check_dividend",
+        "verdict"
+      ]
+    },
+    {
+      "stage": "assemble_evidence_bundle",
+      "inputs": [
+        "financials",
+        "episodes",
+        "rule_checks",
+        "check_dividend"
+      ],
+      "outputs": [
+        "llm_input"
+      ]
+    },
+    {
+      "stage": "compose_and_validate_card",
+      "inputs": [
+        "llm_input"
+      ],
+      "outputs": [
+        "claims",
+        "card"
+      ]
+    },
+    {
+      "stage": "persist_and_reflect",
+      "inputs": [
+        "card",
+        "claims"
+      ],
+      "outputs": [
+        "knowledge_01",
+        "feedback_contract"
+      ]
+    }
+  ],
+  "llm_input": {
+    "request_id": "request_01",
+    "financials_ref": "04_calculated.json#/financials",
+    "episodes_ref": "04_calculated.json#/episodes",
+    "rules_ref": "04_calculated.json#/rule_checks",
+    "thesis_ref": "04_calculated.json#/thesis_checks",
+    "historical_sources_by_episode": [
+      {
+        "episode_id": "episode_2025-02-25",
+        "cutoff": "2025-02-25T09:00:00+03:00",
+        "documents": [
+          {
+            "file": "01_news.json",
+            "news_id": "n_contract"
+          }
+        ]
+      },
+      {
+        "episode_id": "episode_2025-03-03",
+        "cutoff": "2025-03-03T09:00:00+03:00",
+        "documents": []
+      },
+      {
+        "episode_id": "episode_2025-03-04",
+        "cutoff": "2025-03-04T09:00:00+03:00",
+        "documents": [
+          {
+            "file": "01_news.json",
+            "news_id": "n_outlook_v1"
+          }
+        ]
+      },
+      {
+        "episode_id": "episode_2025-03-10",
+        "cutoff": "2025-03-10T09:00:00+03:00",
+        "documents": []
+      },
+      {
+        "episode_id": "episode_2025-03-20",
+        "cutoff": "2025-03-20T09:00:00+03:00",
+        "documents": []
+      }
+    ],
+    "entry_thesis_sources": [
+      {
+        "file": "01_news.json",
+        "news_id": "n_dividend",
+        "cutoff": "2025-02-03T11:00:00+03:00"
+      }
+    ],
+    "later_updates": [
+      {
+        "file": "01_news.json",
+        "news_id": "n_outlook_v2",
+        "role": "Показывать только как последующее уточнение от 5 марта; не как знание инвестора или рынка до сессии 4 марта."
+      }
+    ],
+    "instructions": [
+      "Не пересчитывать числа; использовать готовые метрики.",
+      "Каждое утверждение связывать с evidence_ids и source_ids.",
+      "Отделять факт, расчёт, гипотезу и неизвестное.",
+      "Не использовать поздние сведения для оценки раннего решения.",
+      "Уточнения после события показывать отдельно и с датой.",
+      "Не выводить мотивы человека из сделок и не давать торговые рекомендации."
+    ]
+  },
+  "claims": [
+    {
+      "claim_id": "claim_pnl",
+      "type": "calculation",
+      "text": "Результат позиции −377,60 RUB: движение цены −700,00; дивиденды +400,00; комиссии −25,60; удержанный налог −52,00.",
+      "evidence_ids": [
+        "report_01.financials"
+      ],
+      "source_ids": [
+        "src_broker_snapshot",
+        "src_market_snapshot",
+        "src_split"
+      ]
+    },
+    {
+      "claim_id": "claim_dividend",
+      "type": "verified_fact",
+      "text": "Дивидендный тезис подтвердился: 17 марта зачислено 400 RUB на 40 акций, по 10 RUB до удержания налога.",
+      "evidence_ids": [
+        "check_dividend",
+        "op_dividend"
+      ],
+      "source_ids": [
+        "src_broker_snapshot",
+        "src_dividend"
+      ]
+    },
+    {
+      "claim_id": "claim_process",
+      "type": "rule_result",
+      "text": "После докупки 25 февраля доля бумаги достигла 21.43% при вашем лимите 15%.",
+      "evidence_ids": [
+        "check_weight"
+      ],
+      "source_ids": [
+        "src_broker_snapshot",
+        "src_market_snapshot"
+      ]
+    },
+    {
+      "claim_id": "claim_contract",
+      "type": "hypothesis",
+      "text": "Рост 25 февраля мог быть связан с опубликованным до сессии контрактом. Одной временной связи недостаточно для установления причины.",
+      "evidence_ids": [
+        "episode_2025-02-25",
+        "n_contract"
+      ],
+      "source_ids": [
+        "src_n_contract"
+      ]
+    },
+    {
+      "claim_id": "claim_outlook",
+      "type": "hypothesis",
+      "text": "Снижение прогноза выручки могло повлиять на падение 4 марта. На тот момент сообщалось о 4%; 5 марта компания исправила показатель на 6%.",
+      "evidence_ids": [
+        "episode_2025-03-04",
+        "n_outlook_v1",
+        "n_outlook_v2"
+      ],
+      "source_ids": [
+        "src_n_outlook_v1",
+        "src_n_outlook_v2"
+      ]
+    },
+    {
+      "claim_id": "claim_unknown",
+      "type": "uncertainty",
+      "text": "Для аномального движения 10 марта объяснение в доступной учебной ленте не найдено.",
+      "evidence_ids": [
+        "episode_2025-03-10"
+      ],
+      "source_ids": [
+        "src_market_snapshot"
+      ]
+    }
+  ],
+  "card": {
+    "title": "SYNX: тезис подтвердился, позиция принесла убыток",
+    "claim_ids": [
+      "claim_pnl",
+      "claim_dividend",
+      "claim_process",
+      "claim_contract",
+      "claim_outlook",
+      "claim_unknown"
+    ],
+    "knowledge_id": "knowledge_01",
+    "next_step": "Обсудить логику докупки и открыть материал о дивидендном гэпе."
+  },
+  "knowledge": {
+    "knowledge_id": "knowledge_01",
+    "owner_id": "user_demo",
+    "asset_id": "asset_synx",
+    "version": 1,
+    "status": "proposed",
+    "replaces": null,
+    "report_id": "report_01",
+    "created_at": "2025-04-01T10:01:00+03:00",
+    "period_from": "2025-02-03",
+    "period_through": "2025-03-31",
+    "context": "Подтверждённый дивидендный тезис; две покупки, частичная продажа, сплит.",
+    "observation": "Подтверждение выплаты не гарантировало прибыль позиции. Доля выросла выше заранее выбранного лимита.",
+    "claim_ids": [
+      "claim_pnl",
+      "claim_dividend",
+      "claim_process"
+    ],
+    "scope": "Один учебный эпизод; не доказательство устойчивой привычки или причинной связи.",
+    "reflection_question": "Как вы оценивали размер позиции при докупке 25 февраля?",
+    "learning_topic": "Дивидендный гэп и разница между выполнением тезиса и общим результатом.",
+    "user_confirmation": "pending",
+    "reusable_when": "Пользователь просит сравнить похожие прошлые решения; без автоматического торгового действия."
+  },
+  "feedback_contract": {
+    "feedback_id": null,
+    "knowledge_id": "knowledge_01",
+    "user_confirmed": null,
+    "correction": null,
+    "claim_id": null,
+    "collected_at": null,
+    "status": "not_collected",
+    "use": "Обратная связь хранится отдельно и не переписывает факты или исходный тезис."
+  }
+}
