@@ -14,7 +14,9 @@ TARGET = OUTPUT / "github-ready"
 FILES = [
     "README.md", ".gitignore", ".gitattributes",
     "docs/data-and-pipeline.md", "docs/illustration.md",
+    "docs/research/AI_retrospective_research_v3.docx",
     "docs/assets/retrospective.png", "docs/assets/evidence.json",
+    "examples/README.md",
     "examples/01_news.json", "examples/02_market.json", "examples/03_user_actions.json",
     "examples/04_calculated.json", "examples/05_pipeline_and_knowledge.json",
     "examples/build_demo.py", "scripts/prepare_github.py",
